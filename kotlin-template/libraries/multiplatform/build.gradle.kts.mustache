@@ -1,0 +1,35 @@
+import plugins.publish.POM_DESCRIPTION
+import plugins.publish.POM_NAME
+
+ext[POM_NAME] = "{{pomName}}"
+ext[POM_DESCRIPTION] = "{{pomDescription}}"
+
+plugins {
+    kotlin("jvm") version "{{kotlinVersion}}" // kotlinVersion
+    kotlin("plugin.serialization") version "{{kotlinVersion}}" // kotlinVersion
+    `maven-publish-plugin`
+}
+
+group = "{{groupId}}"
+version = "{{artifactVersion}}"
+
+val kotlin_version = "{{kotlinVersion}}"
+val serialization_version = "{{serializationVersion}}"
+val ktor_version = "{{ktorVersion}}"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation(kotlin("stdlib"))
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serialization_version")
+    api("io.ktor:ktor-client-core:$ktor_version")
+    api("io.ktor:ktor-client-json:$ktor_version")
+    api("io.ktor:ktor-client-serialization:$ktor_version")
+    implementation("io.ktor:ktor-client-cio-jvm:$ktor_version")
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi"
+}

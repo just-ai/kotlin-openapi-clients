@@ -1,0 +1,27 @@
+files:
+  local.properties.mustache:
+    templateType: SupportingFiles
+    destinationFilename: local.properties
+  .gitignore:
+    templateType: SupportingFiles
+    destinationFilename: .gitignore
+
+  # TODO: move publish plugin from buildSrc to buildscript
+  buildSrc/build.gradle.kts:
+    templateType: SupportingFiles
+    destinationFilename: buildSrc/build.gradle.kts
+  buildSrc/src/main/resources/META-INF/gradle-plugins/com.justai.plugins.internal.publish.properties:
+    templateType: SupportingFiles
+    destinationFilename: buildSrc/src/main/resources/META-INF/gradle-plugins/com.justai.plugins.internal.publish.properties
+  buildSrc/src/main/kotlin/Plugins.kt:
+    templateType: SupportingFiles
+    destinationFilename: buildSrc/src/main/kotlin/Plugins.kt
+  buildSrc/src/main/kotlin/plugins/PluginAdapter.kt:
+    templateType: SupportingFiles
+    destinationFilename: buildSrc/src/main/kotlin/plugins/PluginAdapter.kt
+  buildSrc/src/main/kotlin/plugins/utils/GradleUtils.kt:
+    templateType: SupportingFiles
+    destinationFilename: buildSrc/src/main/kotlin/plugins/utils/GradleUtils.kt
+  buildSrc/src/main/kotlin/plugins/publish/CentralPublishPlugin.kt:
+    templateType: SupportingFiles
+    destinationFilename: buildSrc/src/main/kotlin/plugins/publish/CentralPublishPlugin.kt

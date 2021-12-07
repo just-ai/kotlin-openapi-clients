@@ -48,7 +48,7 @@ class OpenApiKotlinJvm(project: Project) : PluginAdapter(project) {
 
             generatorProps["groupId"]?.let { groupId.set(it) }
 
-            packageName.set(openApiKotlin.shortName.flatMap { shortName -> groupId.map { "$it.$shortName" } })
+            packageName.set(openApiKotlin.shortName.flatMap { shortName -> groupId.map { "${it.replace("just-ai", "justai")}.$shortName" } })
             apiPackage.set(packageName.map { "$it.api" })
             modelPackage.set(apiPackage.map { "$it.model" })
 

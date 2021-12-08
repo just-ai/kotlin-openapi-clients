@@ -21,8 +21,8 @@ import java.util.*
 class OpenApiKotlinJvmPlugin : Plugin<Project> by apply<OpenApiKotlinJvm>()
 
 class OpenApiKotlinJvm(project: Project) : PluginAdapter(project) {
+
     private val generatorProps by lazy { loadProperties("generator").toMap() }
-    private val localProps by lazy { loadLocalProperties().toMap() }
 
     override fun Project.apply() {
         pluginManager.apply(OpenApiGeneratorPlugin::class.java)
@@ -32,7 +32,6 @@ class OpenApiKotlinJvm(project: Project) : PluginAdapter(project) {
 
         applyDefaults(openApiKotlin, openApiGenerate)
         registerTasks(openApiGenerate)
-
     }
 
     private fun Project.applyDefaults(openApiKotlin: OpenApiGenerateKotlin, openApiGenerate: OpenApiGeneratorGenerateExtension) {
@@ -70,7 +69,7 @@ class OpenApiKotlinJvm(project: Project) : PluginAdapter(project) {
             configOptions.put("artifactId", openApiKotlin.artifactName)
             generatorProps["artifactVersion"]?.let { configOptions.put("artifactVersion", it) }
 
-            additionalProperties.putAll(generatorProps + localProps)
+            additionalProperties.putAll(generatorProps)
         }
     }
 
@@ -82,6 +81,11 @@ class OpenApiKotlinJvm(project: Project) : PluginAdapter(project) {
         tasks.register<Copy>("moveSources") {
             from(openApiGenerate.outputDir.map { "$it/src/commonMain" })
             into(openApiGenerate.outputDir.map { "$it/src/main" })
+        }
+
+        tasks.register<Copy>("moveLocalProperties") {
+            from(rootProject.layout.projectDirectory.files("local.properties"))
+            into(openApiGenerate.outputDir)
         }
 
         tasks.register<Delete>("deleteUnnecessarySources") {
@@ -98,7 +102,7 @@ class OpenApiKotlinJvm(project: Project) : PluginAdapter(project) {
         }
 
         tasks.named("openApiGenerate") {
-            finalizedBy("moveSources", "deleteUnnecessarySources")
+            finalizedBy("moveSources", "moveLocalProperties", "deleteUnnecessarySources")
         }
     }
 
@@ -160,4 +164,4 @@ class OpenApiKotlinJvm(project: Project) : PluginAdapter(project) {
 
 fun <K, V> MapProperty<K, V>.putAll(vararg entries: Pair<K, V>) = putAll(mapOf(*entries))
 
-private fun Properties.toMap() = stringPropertyNames().associateWith { get(it) as String }
+private fun Properties.toMap() = stringPropertyNames().associateWith { getProperty(it) }

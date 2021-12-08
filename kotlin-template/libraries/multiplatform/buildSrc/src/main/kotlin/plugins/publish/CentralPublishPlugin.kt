@@ -137,7 +137,7 @@ private fun MavenPublication.configurePom(
     pom {
         name.set(pomName)
         description.set(pomDescription)
-        url.set("https://framework.just-ai.com")
+        url.set("https://github.com/just-ai/kotlin-openapi-clients")
 
         licenses {
             license {
@@ -163,8 +163,9 @@ private fun MavenPublication.configurePom(
 
         scm {
             connection.set("scm:git:git@github.com:just-ai/jaicf-kotlin.git")
-            developerConnection.set("scm:git:git@github.com:just-ai/jaicf-kotlin.git")
-            url.set("https://github.com/just-ai/jaicf-kotlin")
+            connection.set("scm:git:git@github.com:just-ai/kotlin-openapi-clients.git")
+            developerConnection.set("scm:git:git@github.com:just-ai/kotlin-openapi-clients.git")
+            url.set("https://github.com/just-ai/kotlin-openapi-clients")
         }
     }
 }

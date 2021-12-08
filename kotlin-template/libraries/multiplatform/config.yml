@@ -1,7 +1,4 @@
 files:
-  local.properties.mustache:
-    templateType: SupportingFiles
-    destinationFilename: local.properties
   .gitignore:
     templateType: SupportingFiles
     destinationFilename: .gitignore

@@ -54,5 +54,5 @@ Example:
 
 All generated clients are ready for publishing to Maven Central
 ```
-cd build/generated/reporter-api && ./gradlew publishAllPublicationsToMavenCentral
+cd build/generated/reporter-api && ./gradlew publishAllPublicationsToMavenCentralRepository
 ```
